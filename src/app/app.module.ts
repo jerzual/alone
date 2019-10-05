@@ -1,47 +1,49 @@
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { RouteReuseStrategy } from '@angular/router';
 
-import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-import { OptionsPage } from '../pages/options/options';
-import { WorldsPage } from '../pages/worlds/worlds';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { BabylonJsProvider } from '../providers/babylon-js/babylon-js';
-import { ComponentsModule } from "../components/components.module";
-import { WorldDetailPage } from "../pages/world-detail/world-detail";
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { AppComponent } from './app.component';
+
+import { BabylonJsProvider } from './services/babylon-js.provider';
+import { ComponentsModule } from './components/components.module';
+
+import { AppRoutingModule } from './app-routing.module';
+import { reducers, metaReducers } from './reducers';
+import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    ListPage,
-    OptionsPage,
-    WorldsPage,
-    WorldDetailPage
-  ],
+  declarations: [AppComponent],
+  entryComponents: [AppComponent],
   imports: [
     BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
     ComponentsModule,
-    IonicModule.forRoot(MyApp),
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    ListPage,
-    OptionsPage,
-    WorldsPage,
-    WorldDetailPage
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+      },
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BabylonJsProvider
-  ]
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    BabylonJsProvider,
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
