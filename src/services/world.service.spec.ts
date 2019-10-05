@@ -1,38 +1,38 @@
-import {WorldService} from "./world.service";
-import {TestBed, inject} from "@angular/core/testing";
-import {mockPlatform} from "ionic-angular/umd/util/mock-providers";
-import {Platform} from "ionic-angular";
+import { WorldService } from "./world.service";
+import { TestBed, inject } from "@angular/core/testing";
+import { mockPlatform } from "ionic-angular/umd/util/mock-providers";
+import { Platform } from "ionic-angular";
 
-describe('WorldService', () => {
+describe("WorldService", () => {
   let service: WorldService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [  ],
+      imports: [],
       providers: [
         WorldService,
-        {provide: Platform,  useFactory: () => mockPlatform() }
-      ]
+        { provide: Platform, useFactory: () => mockPlatform() },
+      ],
     });
   });
-  beforeEach(
-    inject([WorldService], (_service) => {
-      service = _service;
-    })
-  );
+  beforeEach(inject([WorldService], _service => {
+    service = _service;
+  }));
 
-  it('can create Worlds from a seed', done => {
-
+  it("can create Worlds from a seed", done => {
     let world;
-    service.createWorld('testmachin').subscribe(value => {
-      world = value;
-      expect(world).toBeDefined();
-      console.dir(world);
-    },error=> {
-      fail(error);
-    });
-    done()
+    service.createWorld("testmachin").subscribe(
+      value => {
+        world = value;
+        expect(world).toBeDefined();
+        console.dir(world);
+      },
+      error => {
+        fail(error);
+      },
+    );
+    done();
   });
-  it('can create Chunks on demand', done => {
-    done()
+  it("can create Chunks on demand", done => {
+    done();
   });
 });
