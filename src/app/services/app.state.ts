@@ -1,5 +1,5 @@
-import {Chunk, World} from "../models/world.model";
-import {Game} from "../models/game.model";
+import { Chunk, World } from '../models/world.model';
+import { Game } from '../models/game.model';
 
 export interface AppState {
   game: Game;

@@ -5,7 +5,7 @@ export interface Options {
   nightMode: boolean;
   worldGen: {
 
-  },
+  };
   difficulty: number;
 }
 
@@ -17,5 +17,5 @@ export function getDefaultOptions(): Options {
     lights: true,
     worldGen: {},
     difficulty: .5
-  }
+  };
 }

@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+
 import { Options } from '../models/options.model';
 
 export enum OptionsActionTypes {

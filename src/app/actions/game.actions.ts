@@ -1,7 +1,6 @@
 
 export enum GameActionTypes {
-  Start = '[Options] Start',
-  Pause = '[Options] Pause',
-  Save = '[Options] Save',
-  Delete = '[Options] Delete',
+  Start = '[Game] Start',
+  Pause = '[Game] Pause',
+  Over = '[Game] Over',
 }
