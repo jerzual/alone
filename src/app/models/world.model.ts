@@ -15,7 +15,7 @@ export interface Tile {
   key: string;
   x: number;
   y: number;
-  type: TileType
+  type: TileType;
 }
 export interface Chunk {
   _id: string;
@@ -26,13 +26,13 @@ export interface Chunk {
 }
 export interface World {
   _id: string;
-  _rev:string;
+  _rev: string;
   seed: string;
   terrainSeed: number;
   seasonSeed: number;
   chunks: any;
 }
 
-export function generateMockWorld(): World{
+export function generateMockWorld(): World {
   return null;
 }

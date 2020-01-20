@@ -1,6 +1,6 @@
 import { Sprite, Vector2 } from 'babylonjs';
 
-export interface IEntity{
+export interface IEntity {
   _id: string;
   sprite: Sprite;
   name: string;

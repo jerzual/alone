@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Action} from '@ngrx/store';
+import { Injectable } from '@angular/core';
+import { Action } from '@ngrx/store';
 
-import {World} from '../models/world.model';
-export enum WorldActionTypes{
+import { World } from '../models/world.model';
+export enum WorldActionTypes {
   Generate = '[World] Generate world',
   LoadChunk = ' [World] Load Chunk',
   DisposeChunk = ' [World] Dispose Chunk',
@@ -25,6 +25,5 @@ export class DisposeChunk implements Action {
 
   constructor(public payload: string) {}
 }
-
 
 export type WorldActions = Generate | LoadChunk | DisposeChunk;

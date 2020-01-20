@@ -1,6 +1,6 @@
-import {Action} from "@ngrx/store";
+import { Action } from '@ngrx/store';
 
-export enum PlayerActionTypes{
+export enum PlayerActionTypes {
   Move = '[Player] move',
   A = '[Player] action A',
   B = '[Player] action B',

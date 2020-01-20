@@ -22,6 +22,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/game/game.module').then(m => m.GamePageModule),
   },
+  {
+    path: 'options',
+    loadChildren: () =>
+      import('./pages/options/options.module').then(m => m.OptionsPageModule),
+  },
 ];
 @NgModule({
   imports: [

@@ -8,7 +8,8 @@
     ]
   },
   "files": [
-    "src/test.ts",
+    "src/setup-jest.ts",
+    "src/test-config.helper.ts",
     "src/zone-flags.ts",
     "src/polyfills.ts"
   ],
