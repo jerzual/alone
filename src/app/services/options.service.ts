@@ -10,7 +10,7 @@ export class WorldService {
 
   initDB(): Promise<any> {
     return this.platform.ready().then(() => {
-      this.db = new PouchDB('options', { adapter: 'websql' });
+      this.db = new PouchDB('options', { adapter: 'memory'/*'websql'*/ });
     });
   }
 }

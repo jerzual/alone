@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as faker from 'faker';
 import noise from 'noisejs';
 import { Chunk, Tile, TileType, World } from '../models/world.model';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import * as PouchDB from 'pouchdb';
 import { Platform } from '@ionic/angular';
@@ -15,7 +15,7 @@ const MAX_ELEVATION = 255;
 export class WorldService {
 
   constructor(private platform: Platform) {}
-  private db: PouchDB;
+  private db: PouchDB.Database;
 
   /**
    *
@@ -31,16 +31,17 @@ export class WorldService {
     }
   }
 
-  initDB(): Promise<any> {
+  async initDB(): Promise<any> {
     return this.platform.ready().then(() => {
-      this.db = new PouchDB('worlds', { adapter: 'websql' });
+      this.db = new PouchDB('worlds', { adapter: 'memory'/*'websql'*/ });
     });
   }
+
   getAllWorlds(): Observable<World[]> {
     return from(
       this.initDB()
         .then(() => {
-          return this.db.allDocs({ include_docs: true });
+          return this.db.allDocs<World>({ include_docs: true });
         })
         .then(docs => {
           console.log('worlds: ', docs);
@@ -50,19 +51,19 @@ export class WorldService {
 
           return docs.rows.map(row => {
             // Convert string to date, doesn't happen automatically.
-            row.doc.Date = new Date(row.doc.Date);
+            // row.doc.Date = new Date(row.doc.Date);
             return row.doc;
           });
         }),
     );
   }
 
-  createWorld(seed: string): Observable<World> {
+  createWorld(seed: string): Observable<void> {
     faker.seed(Number(seed));
     const rng = {random: faker.random.number};
     const world: World = {
-      _id: uuid.v4(),
-      _rev: uuid.v4(),
+      _id: uuidv4(),
+      _rev: uuidv4(),
       seed,
       terrainSeed: Math.floor(rng.random() * 65536),
       seasonSeed: Math.floor(rng.random() * 65536),
@@ -75,7 +76,6 @@ export class WorldService {
         })
         .then(data => {
           console.log('create fullfilled: ', data);
-          return data.doc;
         }),
     );
   }
@@ -97,7 +97,7 @@ export class WorldService {
         noise.seed(world.terrainSeed);
         const noiseValue = noise.simplex2d(x / 100, y / 100) * MAX_ELEVATION;
         const tile: Tile = {
-          _id: uuid.v4(),
+          _id: uuidv4(),
           key: `${x},${y}`,
           x,
           y,
